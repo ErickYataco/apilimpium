@@ -11,4 +11,10 @@ class Worker extends Model
         return $this->hasMany('App\Assignment');
     }
 
+    public function attachments()
+    {
+        return $this->hasMany('App\Attachment');
+    }
+
+
 }

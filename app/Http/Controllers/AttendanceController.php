@@ -33,15 +33,22 @@ class AttendanceController extends Controller{
 
         $local_id=1;
         $workplace=Workplace::find($local_id);
-        $assignments=Assignment::with('worker','attendance')->where('workplace_id',$workplace->id)->get();
+        $assignments=Assignment::with('worker.attachments','attendance')->where('workplace_id',$workplace->id)->get();
+
+
 
         $wokers=array();
         foreach($assignments as $assignment){
             //$wokers[]=$assignment->worker()->first();
+            $shift="";
+            if(count($assignment->attendance)>0){
+                $shift= $assignment->attendance->first()->start_work_hour." ".$assignment->attendance->first()->end_work_hour." ".
+                    $assignment->attendance->first()->start_lunch_hour." ".$assignment->attendance->first()->end_lunch_hour." ";
+            }
+
             $wokers[]=array('full_name' =>$assignment->worker()->first()->first_name.' '.$assignment->worker()->first()->first_last_name.' '.$assignment->worker()->first()->second_last_name,
                 'mobile'=>$assignment->worker()->first()->mobile,'job_title'=>$assignment->worker()->first()->job_title,
-                'sunday'=>'','start_work_hour'=>'7:00 am','end_work_hour'=>'5:00 pm',
-                'start_break_hour'=>'12:00 am','end_break_hour'=>'1:00pm','validity'=>'1','type_assignment'=>'1',);
+                'shift'=>$shift,);
         }
 
         return $this->showResponse($wokers);
