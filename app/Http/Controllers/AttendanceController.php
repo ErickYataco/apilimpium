@@ -12,13 +12,6 @@ class AttendanceController extends Controller{
 
     public function register($dni,$latitude,$longitude,$type){
 
-        /*$attendance= new Attendance();
-        $attendance->day_attendance=date('Y-m-d');
-        $attendance->start_work_hour="2:30 pm";
-        $attendance->save();
-
-        return $this->showResponse($attendance);*/
-
         if(!$worker= Worker::where('dni','=',$dni)->first())
         {
             return $this->notFoundResponse();
