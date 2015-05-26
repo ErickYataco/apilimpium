@@ -40,7 +40,9 @@ class AttendanceController extends Controller{
             //$wokers[]=$assignment->worker()->first();
             $shift="";
             $foto="";
+            $status=0;
             if(count($assignment->attendance)>0){
+                $status=$assignment->type_assignment;
                 $shift= $assignment->attendance->first()->start_work_hour." ".$assignment->attendance->first()->end_work_hour." ".
                     $assignment->attendance->first()->start_lunch_hour." ".$assignment->attendance->first()->end_lunch_hour." ";
             }
@@ -51,9 +53,10 @@ class AttendanceController extends Controller{
                 }
             }
 
+
             $wokers[]=array('full_name' =>$assignment->worker()->first()->first_name.' '.$assignment->worker()->first()->first_last_name.' '.$assignment->worker()->first()->second_last_name,
                 'mobile'=>$assignment->worker()->first()->mobile,'job_title'=>$assignment->worker()->first()->job_title,
-                'shift'=>$shift,'foto'=>$foto,'status'=>$assignment->type_assignment,);
+                'shift'=>$shift,'foto'=>$foto,'status'=>$status,);
         }
 
         return $this->showResponse($wokers);
