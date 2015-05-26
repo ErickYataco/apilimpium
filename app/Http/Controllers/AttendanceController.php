@@ -33,7 +33,7 @@ class AttendanceController extends Controller{
 
         $local_id=1;
         $workplace=Workplace::find($local_id);
-        $assignments=Assignment::with('worker.attachments','attendance')->where('workplace_id',$workplace->id)->get();
+        $assignments=Assignment::with('worker.attachments','attendance')->where('workplace_id',$workplace->id)->orderBy('type_assignment','desc')->get();
 
         $wokers=array();
         foreach($assignments as $assignment){
