@@ -1,8 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Assignment;
+use App\Workplace;
 use App\Http\Controllers\Controller;
-use App\Person;
+use App\Worker;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller{
@@ -17,17 +19,34 @@ class AttendanceController extends Controller{
 
         return $this->showResponse($attendance);*/
 
-        if(!$person= Person::where('dni','=',$dni))
+        if(!$worker= Worker::where('dni','=',$dni)->first())
         {
             return $this->notFoundResponse();
         }
-        $person->status=1;
-        $person->save();
+        //dd($worker);
+        $assignment=Assignment::where('worker_id',$worker->id)->first();
+        //dd($assignment);
+        $attendance=new Attendance();
+        $attendance->assignment_id=$assignment->id;
+        $attendance->day_attendance=date("Y-m-d H:i:s");
+        $attendance->start_work_hour=date("H:i:s");
+        $attendance->save();
+
+        return $this->showResponse($attendance);
     }
 
     public function workers($local_id){
 
-        return $this->showResponse(Person::all());
+        $local_id=1;
+        $workplace=Workplace::find($local_id);
+        $assignments=Assignment::with('worker')->where('workplace_id',$workplace->id)->get();
+
+        $wokers=array();
+        foreach($assignments as $assignment){
+            $wokers[]=$assignment->worker()->first();
+        }
+
+        return $this->showResponse($wokers);
     }
 
     protected function showResponse($data)

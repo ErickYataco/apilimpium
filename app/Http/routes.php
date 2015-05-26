@@ -20,7 +20,7 @@ $app->get('/1.0/users/login/{name}/{password}','App\Http\Controllers\UserControl
 
 $app->get('/1.0/attendances/workers/{local_id}','App\Http\Controllers\AttendanceController@workers');
 
-$app->post('/1.0/attendances/register/{dni}/{latitude}/{longitude}/{hour}/{type}','App\Http\Controllers\AttendanceController@register');
+$app->get('/1.0/attendances/register/{dni}/{latitude}/{longitude}/{hour}/{type}','App\Http\Controllers\AttendanceController@register');
 
 $app->post('/1.0/workplaces/register_location/{id}/{latitude}/{longitude}','App\Http\Controllers\WorkplaceController@register_location');
 
