@@ -41,11 +41,14 @@ class AttendanceController extends Controller{
             $shift="";
             $foto="";
             $status=0;
+            $status=$assignment->type_assignment;
             if(count($assignment->attendance)>0){
-                $status=$assignment->type_assignment;
+
                 $shift= $assignment->attendance->first()->start_work_hour." ".$assignment->attendance->first()->end_work_hour." ".
                     $assignment->attendance->first()->start_lunch_hour." ".$assignment->attendance->first()->end_lunch_hour." ";
             }
+
+
 
             foreach($assignment->worker->attachments as $attachment){
                 if($attachment->type==2){
