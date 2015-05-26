@@ -53,7 +53,7 @@ class AttendanceController extends Controller{
 
             $wokers[]=array('full_name' =>$assignment->worker()->first()->first_name.' '.$assignment->worker()->first()->first_last_name.' '.$assignment->worker()->first()->second_last_name,
                 'mobile'=>$assignment->worker()->first()->mobile,'job_title'=>$assignment->worker()->first()->job_title,
-                'shift'=>$shift,'foto'=>'status'=>'',);
+                'shift'=>$shift,'foto'=>$foto,'status'=>$assignment->type_assignment,);
         }
 
         return $this->showResponse($wokers);
