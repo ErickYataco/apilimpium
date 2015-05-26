@@ -33,20 +33,27 @@ class AttendanceController extends Controller{
 
         $local_id=1;
         $workplace=Workplace::find($local_id);
-        $assignments=Assignment::with('worker','attendance')->where('workplace_id',$workplace->id)->get();
+        $assignments=Assignment::with('worker.attachments','attendance')->where('workplace_id',$workplace->id)->get();
 
         $wokers=array();
         foreach($assignments as $assignment){
             //$wokers[]=$assignment->worker()->first();
             $shift="";
-//            if(count($assignment->attendance)>0){
-//                $shift= $assignment->attendance->first()->start_work_hour." ".$assignment->attendance->first()->end_work_hour." ".
-//                    $assignment->attendance->first()->start_lunch_hour." ".$assignment->attendance->first()->end_lunch_hour." ";
-//            }
+            $foto="";
+            if(count($assignment->attendance)>0){
+                $shift= $assignment->attendance->first()->start_work_hour." ".$assignment->attendance->first()->end_work_hour." ".
+                    $assignment->attendance->first()->start_lunch_hour." ".$assignment->attendance->first()->end_lunch_hour." ";
+            }
+
+            foreach($assignment->worker->attachments as $attachment){
+                if($attachment->type==2){
+                    $foto=$attachment->url;
+                }
+            }
 
             $wokers[]=array('full_name' =>$assignment->worker()->first()->first_name.' '.$assignment->worker()->first()->first_last_name.' '.$assignment->worker()->first()->second_last_name,
                 'mobile'=>$assignment->worker()->first()->mobile,'job_title'=>$assignment->worker()->first()->job_title,
-                'shift'=>$shift,);
+                'shift'=>$shift,'foto'=>,'status'=>'');
         }
 
         return $this->showResponse($wokers);
