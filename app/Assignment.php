@@ -11,4 +11,9 @@ class Assignment extends Model
         return $this->belongsTo('App\Worker');
     }
 
+    public function attendance()
+    {
+        return $this->hasMany('App\Attendance')->where('day_attendance',date("Y-m-d"));
+    }
+
 }
