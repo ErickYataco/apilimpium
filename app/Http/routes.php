@@ -18,6 +18,8 @@ $app->get('/', function() use ($app) {
 
 $app->get('/1.0/users/login/{name}/{password}','App\Http\Controllers\UserController@login');
 
+$app->get('/1.0/enterprises/names/{text}','App\Http\Controllers\EnterpriseController@filter');
+
 $app->get('/1.0/attendances/workers/{local_id}','App\Http\Controllers\AttendanceController@workers');
 
 $app->get('/1.0/attendances/register/{dni}/{latitude}/{longitude}/{hour}/{type}','App\Http\Controllers\AttendanceController@register');
