@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 class WorkplaceController extends Controller{
 
 
+	public function filter($idEnterprise,$text){
+
+		if(!$workplaces= Workplace::where('name','LIKE',"%$text%")->where('enterprise_id',$idEnterprise)->get())
+		{
+			return $this->notFoundResponse();
+		}
+
+		return $this->showResponse($workplaces);
+	}
+
     public function register_location($id,$latitude,$longitude){
 
         if(!$workplace= Workplace::find($id))
