@@ -22,11 +22,13 @@ $app->get('/1.0/enterprises/names/{text}','App\Http\Controllers\EnterpriseContro
 
 $app->get('/1.0/enterprises/{id}/workplaces/names/{text}','App\Http\Controllers\WorkplaceController@filter');
 
+$app->get('/1.0/workplaces/{id}/workers','App\Http\Controllers\AttendanceController@workers');
+
 $app->get('/1.0/attendances/workers/{local_id}','App\Http\Controllers\AttendanceController@workers');
 
 $app->get('/1.0/attendances/register/{dni}/{latitude}/{longitude}/{hour}/{type}','App\Http\Controllers\AttendanceController@register');
 
-$app->post('/1.0/workplaces/register_location/{id}/{latitude}/{longitude}','App\Http\Controllers\WorkplaceController@register_location');
+$app->post('/1.0/workplaces/{id}/register_location/{latitude}/{longitude}','App\Http\Controllers\WorkplaceController@register_location');
 
 
 //$app->put('1.0/article/{id}','App\Http\Controllers\ArticleController@updateArticle');

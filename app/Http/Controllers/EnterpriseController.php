@@ -9,7 +9,7 @@ class EnterpriseController extends Controller{
 
     public function filter($text){
 
-        if(!$enterprise= Enterprise::where('name','LIKE',"%$text%")->get())
+        if(!$enterprise= Account::where('name','LIKE',"%$text%")->get())
         {
             return $this->notFoundResponse();
         }
