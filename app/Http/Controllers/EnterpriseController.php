@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 
-use App\Enterprise;
+use App\Account;
 
 
 class EnterpriseController extends Controller{
