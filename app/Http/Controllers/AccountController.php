@@ -4,7 +4,7 @@
 use App\Account;
 
 
-class EnterpriseController extends Controller{
+class AccountController extends Controller{
 
 
     public function filter($text){

@@ -9,7 +9,7 @@ class WorkplaceController extends Controller{
 
 	public function filter($idEnterprise,$text){
 
-		if(!$workplaces= Workplace::where('name','LIKE',"%$text%")->where('enterprise_id',$idEnterprise)->get())
+		if(!$workplaces= Workplace::where('name','LIKE',"%$text%")->where('account_id',$idEnterprise)->get())
 		{
 			return $this->notFoundResponse();
 		}
